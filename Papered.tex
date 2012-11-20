@@ -127,83 +127,19 @@
 
 
 %%目录设置
-\renewcommand\contentsname{\hei \xiaosan 目~~~~~录}
-
-%\renewcommand\chaptername{第~\xCJKnumber{\thechapter}~章}
-
-\setcounter{secnumdepth}{4} \setcounter{tocdepth}{2}
-
-
-
-
-\titlecontents{chapter}[3.8em]{\hspace{-3.8em}\hei \sihao \bfseries}{第~\xCJKnumber{\thecontentslabel}~章~~}{}{\titlerule*[4pt]{.}\contentspage}
-
-
-\dottedcontents{section}[40pt]{}{22pt}{0.3pc}
-\dottedcontents{subsection}[62pt]{}{32pt}{0.3pc}
-
-
-
-%重新定义BiChapter命令，可实现标题手动换行，但不影响目录
-\def\BiChapter{\relax\@ifnextchar [{\@BiChapter}{\@@BiChapter}}
-\def\@BiChapter[#1]#2#3{\chapter[#1]{#2}
-    \addcontentsline{toe}{chapter}{\hei \bfseries \sihao Chapter \thechapter\hspace{0.5em} #3}}
-\def\@@BiChapter#1#2{\chapter{#1}
-    \addcontentsline{toe}{chapter}{\hei \bfseries \sihao Chapter \thechapter\hspace{0.5em}{\boldmath #2}}}
-
-
-
-\newcommand{\BiSection}[2]
-{   \section{\hei \xiaosi \bfseries #1}
-    \addcontentsline{toe}{section}{\hei \xiaosi \bfseries \protect\numberline{\csname thesection\endcsname}#2}
+\renewcommand{\contentsname}{\hei\xiaoer 目~~~录}
+\setcounter{tocdepth}{2}\setcounter{secnumdepth}{4}
+\titlecontents{chapter}[12bp]{\vspace{0pt}}
+    {\bfseries\hei\sihao{第\,\xCJKnumber{\thecontentslabel}\,章}\quad}{}
+    {\hspace{.5em}\titlerule*[10pt]{$\cdot$}\contentspage}
+\titlecontents{section}[12bp]{\vspace{0pt}}
+    {\bfseries\hei\xiaosi\thecontentslabel\quad}{}
+    {\hspace{.5em}\titlerule*[10pt]{$\cdot$}\contentspage}
+\titlecontents{subsection}[12bp]{\vspace{0pt}}
+    {\song\xiaosi\thecontentslabel\quad}{}
+    {\hspace{.5em}\titlerule*[10pt]{$\cdot$}\contentspage}
     
-}
 
-\newcommand{\BiSubsection}[2]
-{    \subsection{\song \xiaosi #1}
-    \addcontentsline{toe}{subsection}{\song \xiaosi \protect\numberline{\csname thesubsection\endcsname}#2}
-}
-
-\newcommand{\BiSubsubsection}[2]
-{    \subsubsection{#1}
-    \addcontentsline{toe}{subsubsection}{\protect\numberline{\csname thesubsubsection\endcsname}#2}
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 英文目录格式
-\def\@dotsep{0.75}           % 定义英文目录的点间距
-\setlength\leftmargini {0pt}
-\setlength\leftmarginii {0pt}
-\setlength\leftmarginiii {0pt}
-\setlength\leftmarginiv {0pt}
-\setlength\leftmarginv {0pt}
-\setlength\leftmarginvi {0pt}
-
-\def\engcontentsname{\bfseries \xiaosan Contents}
-\newcommand\tableofengcontents{
-   \pdfbookmark[0]{Contents}{econtent}
-     \@restonecolfalse
-   \chapter*{\engcontentsname  %chapter*上移一行，避免在toc中出现。
-       \@mkboth{%
-          \engcontentsname}{\engcontentsname}}
-   \@starttoc{toe}%
-   \if@restonecol\twocolumn\fi
-   }
-
-
-\newcommand{\BiAppendixChapter}[2] % 该附录命令适用于发表文章，简历等
-{\phantomsection
-\markboth{#1}{#1}
-\addcontentsline{toc}{chapter}{\xiaosi #1}
-\addcontentsline{toe}{chapter}{\bfseries \xiaosi #2}  \chapter*{#1}
-}
-
-\newcommand{\BiAppChapter}[2]    % 该附录命令适用于有章节的完整附录
-{\phantomsection 
- \chapter{#1}
- \addcontentsline{toe}{chapter}{\bfseries \xiaosi Appendix \thechapter~~#2}
-}
 
 
 
@@ -213,7 +149,7 @@
 \titleformat{\section}[hang]{\hei\sihao\bfseries}{\thesection{}}{1em}{}
 \titleformat{\subsection}[hang]{\bfseries\hei\xiaosi}{\thesubsection}{0.5em}{}
 \titleformat{\subsubsection}[hang]{\bfseries\hei\xiaosi}{\thesubsubsection}{0.5em}{}
-\titlespacing{\chapter}{0bp}{-5.5mm}{12bp}
+\titlespacing{\chapter}{0bp}{12bp}{12bp}
 \titlespacing{\section}{0bp}{0bp}{12bp}
 \titlespacing{\subsection}{0bp}{12bp}{0bp}
 \titlespacing{\subsubsection}{0bp}{12bp}{0bp}
@@ -452,8 +388,8 @@
 %% 引用文献格式
 %\let\textcite=\cite
 %\renewcommand{\cite}[1]{\textsuperscript{\xiaosihao\textcite{#1}}}
-%\renewcommand\refname{\vspace{0pt}参考文献\vspace{12pt}}
-\renewcommand\bibname{参考文献} 
+\renewcommand\refname{\vspace{0pt}参考文献\vspace{12pt}}
+
 
 
 %一些行距
@@ -489,7 +425,7 @@
  \fi}
 \makeatother
 
-\predisplaypenalty=0  %公式之前可以换页，公式出现在页面顶部
+
 
 \usepackage{xunicode}
 \usepackage{polyglossia}
@@ -499,6 +435,32 @@
 
 
             
+\makeatletter
+\newcommand\engcontentsname{Contents}
+\newcommand\tableofengcontents{%
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi
+    \chapter*{\engcontentsname
+        \@mkboth{%
+           \MakeUppercase\engcontentsname}{\MakeUppercase\engcontentsname}}%
+    \@starttoc{toe}% !!!!Define a new contents!!!!
+    \if@restonecol\twocolumn\fi
+    }
+\newcommand\addengcontents[2]{%
+    \addcontentsline{toe}{#1}{\protect\numberline{\csname the#1\endcsname}#2}}
+\makeatother
+
+\usepackage[titles]{tocloft}
+\addcontentsline{toc}{echapter}{\indexname}
+
+\newcommand\echapter[1]{\addengcontents{chapter}{#1}}
+\newcommand\esection[1]{\addengcontents{section}{#1}}
+\newcommand\esubsection[1]{\addengcontents{subsection}{#1}}
+
+    
 %%%文章正文
 \begin{document}
 
@@ -537,8 +499,10 @@
 
 
 %目录
-\tableofcontents    % 中文目录
-\cleardoublepage
+
+
+
+\tableofcontents % 中文目录
 \tableofengcontents % 英文目录
 \cleardoublepage
 
@@ -547,18 +511,21 @@
 \setcounter{page}{1} 
 \mainmatter
 
-\BiChapter{绪论}{Introduction}
+\chapter{学习}
+\echapter{Study}
 
-\BiChapter{学习}{Study}
 
-\BiSection{引言}{Introduction}
+\section{引言}
+\esection{Intro}
 
-\BiSubsection{研究背景}{Background}
+
+\subsection{研究背景}
+\esubsection{Background}
 
 计量经济学(Econometrics)作为经济学科的一个分支学科，在$20$世纪$20$年代末由R.Frish创立，经过$40$多年的发展，其经典理论方法已经成熟。自$20$世纪$70$年代以来，随着经济活动的复杂性增强和计量经济学应用领域的扩展，计量经济学理论方法得到了很大的发展。除了$2000$年诺贝尔经济学奖获得者J.J.Heckman对选择性样本模型理论的发展和D.L.Mcfadden对离散选择模型理论的发展，以及以此开创的微观计量经济学之外，宏观领域中动态计量经济学模型理论方法的发展是这个阶段最重要的部分，该方法以非参数模型理论方法为基础，并形成了较为完整的内容体系，构成了现代计量经济学的主要部分\cite{yaz2003}。然而到目前为止，它们仍旧处于新的领域，尚在研究和发展之中。因此，本文希望在前人研究的基础上，试图对它们的发展做出一点贡献。
 
 
-\BiSubsection{R语言概述}{R Language}
+\subsection{R语言概述}
 
 R语言是主要用于统计分析、绘图的语言和操作环境。R本来是由来自新西兰奥克兰大学的Ross Ihaka和Robert Gentleman开发。现在由“R开发核心团队”负责开发。R是基于S语言的一个GNU项目，所以也可以当作S语言的一种实现，通常用S语言编写的代码都可以不作修改的在R环境下运行。R的语法也同样是来自于Scheme\cite{rwiki}。
 
@@ -581,11 +548,10 @@ R的定位是一个完善、统一的系统，而非其他数据分析软件那�
 \newpage{}
 
 
-\BiSection{参数模型与非参数模型的比较分析}{Compare}
+\section{参数模型与非参数模型的比较分析}
 
 
-\BiSubsection{计量经济参数模型简析}{Model}
-
+\subsection{计量经济参数模型简析}
 
 在日常生活以及经济活动中，我们常常需要研究生产投入与产出之间的关系。例如，在宏观方面，以$Y=A(t)L^{\alpha}K^{\beta}\mu$为基本形式的Cobb-Douglas生产函数通过分析两者的关系，分析并预测了各个国家、地区的工业系统或大企业的产出水平；在微观方面，商品消费支出和收入之间关系（或恩格尔曲线）的研究也对两者之间的关系进行分析和预测以商品消费支出和收入之间关系为例，Working(1943)\cite{working1943statistical}、Leser(1963)\cite{leser1963forms}的实证研究表明，消费支出份额关于总支出的线性参数恩格尔曲线模型(Workling-Leser模型)可以较好地拟合其实际样本数据，模型形式如下：
 
@@ -597,7 +563,7 @@ w_{k}=\xi_{k}+\beta_{k}\log M
 其中，$w_{k}$是商品类$k$的消费支出$m_{k}$占总消费支出$M$的比例，$\xi_{k}$是与价格有关的常数，$\log$指以$e$为底的对数（下同）。这样表示的恩格尔曲线不但可以很好地拟合实际数据，而且还有一定的微观基础：它是几乎理想需求系统(AIDS)在价格给定的情况下的一个特例（详见Deaton与Muellbauer(1980)\cite{deaton1980almost}的结论）。参照周先波与田凤平(2008、2009)\cite{zxb2009,zxb20081}的研究结果可知，Working-Leser参数模型设定的总消费支出的对数和各类商品消费份额之间的关系是线性的。较强线性约束使其不一定能很好地描绘所有的数据。与传统非参数核估计进行比较，使用非参数估计方法拟合的图形比参数估计拟合的图形更好地反映了两变量之间的变化趋势及特征。在下面的章节中我们将通过一组数据比较参数估计和非参数估计的拟合效果。
 
 
-\BiSubsection{截面数据非参数Nadaraya-Watson核估计概述}{Nonparametric}
+\subsection{截面数据非参数Nadaraya-Watson核估计概述}
 
 假设$Y$为被解释变量，$\boldsymbol{X}=\left(X_{1},\cdots,X_{q}\right)$为解释变量向量，是影响$Y$的$q$个重要因素。给定样本观测值$(Y_{1},\boldsymbol{X_{1}})$,$(Y_{2},\boldsymbol{X_{2}})$,$\cdots$,$(Y_{n},\boldsymbol{X_{n}})$，假定$(Y_{i},\boldsymbol{X_{i}})$独立同分布（下面简称i.i.d），建立非参数回归模型：
 
@@ -621,7 +587,7 @@ Y_{i}=m(\boldsymbol{X_{i}})+u_{i}
 
 
 
-\BiSubsection{对比分析}{Analysis}
+\subsection{对比分析}
 
 从公式(\ref{eq:2})中可以看出，核估计相当于作局部加权的最小二乘估计。那么，经典参数最小二乘估计与Nadaraya-Watson核估计在拟合效果上到底有多大差别呢？下面我们将通过使用一组数据来对其进行比较。
 
@@ -648,16 +614,13 @@ Y_{i}=m(\boldsymbol{X_{i}})+u_{i}
 
 计算得到线性回归的拟合结果见图\ref{fig:=006469=006258=008F66=006570=00636E=0053CA=005176=007EBF=006027=0062DF=005408=0056FE}，非参数回归见图\ref{fig:=006469=006258=008F66=006570=00636E=007684=00975E=0053C2=006570=0056DE=005F52=0062DF=005408=0056FE}。从这些图中我们可以清楚地看到，$Y_{i}$与$X_{i}$的关系是非线性关系，$ $给定已知的线性函数，拟合效果很差；即使使用其他已知的非线性函数，$Y_{i}$与$X_{i}$的拟合效果也显然不能令人满意。而在图\ref{fig:=006469=006258=008F66=006570=00636E=007684=00975E=0053C2=006570=0056DE=005F52=0062DF=005408=0056FE}中的非参数拟合图中我们可以看到非参数回归有很好的拟合效果，可以真实反映$Y_{i}$与$X_{i}$的实际关系（在不同的核函数和窗宽的选择下，拟合效果也有一定的差异）。$ $
 
-\newpage{}
-\bibliographystyle{XMU}
-\setlength{\bibsep}{0.5ex}  %参考文献行距 
-\phantomsection\addcontentsline{toc}{chapter}{参考文献}
-%\addcontentsline{toc}{chapter}{参考文献}      % 参考文献加入到中文目录
-\addcontentsline{toe}{chapter}{\bfseries  References} % 参考文献加入到英文目录
-%\addtolength{\bibsep}{-0.8em}
-\nocite{*}  %若将此命令屏蔽掉，则未引用的文献不会出现在文后的参考文献列表中。
 
-\bibliography{Paper}
+%\setlength{\bibsep}{0.25ex}  %参考文献行距 
+
+%\phantomsection\addcontentsline{toc}{section}{\vspace{6pt}\sihao\hei 参考文献}
+
+%\bibliographystyle{ECUST}
+%\bibliography{Reference}
 
 
 
