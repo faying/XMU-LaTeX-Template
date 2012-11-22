@@ -26,11 +26,6 @@
 %\usepackage{color}      % 支持彩色
 
 % 版面控制宏包，定义规定的版面尺寸============
-%\usepackage[%paperwidth=18.4cm, paperheight= 26cm,
-%            body={14.6true cm,22.0true cm},
-%            twosideshift=0 pt,
-%            %headheight=1.0true cm
-%            ]{geometry}
 \usepackage[top=2cm,bottom=2.5cm,left=2.8cm,right=2.8cm,includehead,includefoot%
             ]{geometry}  
 
@@ -107,7 +102,8 @@
 %页眉页脚
 \pagestyle{fancy}
 \renewcommand{\sectionmark}[1]{\markright{\small\thesection\quad #1}{}}
-\renewcommand{\chaptermark}[1]{\markboth{\small 第\,\xCJKnumber{\thechapter}\,章\quad #1}{}}
+%\renewcommand{\chaptermark}[1]{\markboth{\small 第\,\xCJKnumber{\thechapter}\,章\quad #1}{}}
+\renewcommand{\chaptermark}[1]{\markboth{\small 第\,\thechapter \,章\quad #1}{}}
 \fancyhf{}   
 \fancyhead[CE]{\song \wuhao\rightmark}
 \fancyhead[CO]{\song \wuhao \leftmark}
@@ -128,7 +124,9 @@
 
 
 %% 正文标题格式
-\titleformat{\chapter}[hang]{ \centering\xiaosan\hei\bfseries}{第\,\xCJKnumber{\thechapter}\,章}{1em}{} %章：小三黑体加粗并居中
+%\titleformat{\chapter}[hang]{ \centering\xiaosan\hei\bfseries}{第\,\xCJKnumber{\thechapter}\,章}{1em}{} %章：小三黑体加粗并居中
+\titleformat{\chapter}[hang]{ \centering\xiaosan\hei\bfseries}{第\,\thechapter\,章}{1em}{} %章：小三黑体加粗并居中
+
 \titleformat{\section}[hang]{\hei\sihao\bfseries}{\thesection{}}{1em}{} %节：四号黑体加粗
 \titleformat{\subsection}[hang]{\bfseries\hei\xiaosi}{\thesubsection}{0.5em}{} %目：小四黑体加粗
 \titleformat{\subsubsection}[hang]{\bfseries\hei\xiaosi}{\thesubsubsection}{0.5em}{} %子目：小四黑体加粗
@@ -141,7 +139,7 @@
 % 图表定义
 \renewcommand{\figurename}{\bfseries \song \xiaosi 图}
 \numberwithin{figure}{chapter}
-\renewcommand{\tablename}{\bfseries \song \xiaoso  表}
+\renewcommand{\tablename}{\bfseries \song \xiaosi  表}
 \numberwithin{table}{chapter}
 \renewcommand{\thefigure}{\thechapter.\arabic{figure}}
 \renewcommand{\thetable}{\thechapter.\arabic{table}}
@@ -357,7 +355,9 @@
 \renewcommand\contentsname{\hei \xiaosan 目~~~~~录}
 \setcounter{secnumdepth}{4} \setcounter{tocdepth}{2}
 
-\titlecontents{chapter}[3.8em]{\hspace{-3.8em}\hei \sihao \bfseries}{第~\xCJKnumber{\thecontentslabel}~章~~}{}{\titlerule*[4pt]{.}\contentspage}
+%\titlecontents{chapter}[3.8em]{\hspace{-3.8em}\hei \sihao \bfseries}{第~\xCJKnumber{\thecontentslabel}~章~~}{}{\titlerule*[4pt]{.}\contentspage}
+\titlecontents{chapter}[3.8em]{\hspace{-3.8em}\hei \sihao \bfseries}{第~\thecontentslabel~章~~}{}{\titlerule*[4pt]{.}\contentspage}
+
 
 %修正章节数字在目录的距离
 \dottedcontents{section}[40pt]{}{22pt}{0.3pc}
@@ -426,7 +426,7 @@
 
 
 
-
+%三线表
 \makeatletter
 \def\hlinewd#1{%
   \noalign{\ifnum0=`}\fi\hrule \@height #1 \futurelet
@@ -636,7 +636,26 @@ Y_{i}=m(\boldsymbol{X_{i}})+u_{i}
 \end{figure}
 
 
-计算得到线性回归的拟合结果见图\ref{fig:=006469=006258=008F66=006570=00636E=0053CA=005176=007EBF=006027=0062DF=005408=0056FE}，非参数回归见图\ref{fig:=006469=006258=008F66=006570=00636E=007684=00975E=0053C2=006570=0056DE=005F52=0062DF=005408=0056FE}。从这些图中我们可以清楚地看到，$Y_{i}$与$X_{i}$的关系是非线性关系，$ $给定已知的线性函数，拟合效果很差；即使使用其他已知的非线性函数，$Y_{i}$与$X_{i}$的拟合效果也显然不能令人满意。而在图\ref{fig:=006469=006258=008F66=006570=00636E=007684=00975E=0053C2=006570=0056DE=005F52=0062DF=005408=0056FE}中的非参数拟合图中我们可以看到非参数回归有很好的拟合效果，可以真实反映$Y_{i}$与$X_{i}$的实际关系（在不同的核函数和窗宽的选择下，拟合效果也有一定的差异）。$ $
+计算得到线性回归的拟合结果见图\ref{fig:=006469=006258=008F66=006570=00636E=0053CA=005176=007EBF=006027=0062DF=005408=0056FE}，非参数回归见图\ref{fig:=006469=006258=008F66=006570=00636E=007684=00975E=0053C2=006570=0056DE=005F52=0062DF=005408=0056FE}。从这些图中我们可以清楚地看到，$Y_{i}$与$X_{i}$的关系是非线性关系，$ $给定已知的线性函数，拟合效果很差；即使使用其他已知的非线性函数，$Y_{i}$与$X_{i}$的拟合效果也显然不能令人满意。而在图\ref{fig:=006469=006258=008F66=006570=00636E=007684=00975E=0053C2=006570=0056DE=005F52=0062DF=005408=0056FE}中的非参数拟合图中我们可以看到非参数回归有很好的拟合效果，可以真实反映$Y_{i}$与$X_{i}$的实际关系（在不同的核函数和窗宽的选择下，拟合效果也有一定的差异）。
+
+\begin{table}[H]
+\caption{魏瑾瑞}
+
+\begin{centering}
+\begin{tabular}{ccccc}
+\hlinewd{2pt} 
+1 & 1 & 1 & 1 & 1\tabularnewline
+\hline 
+2 & 2 & 2 & 2 & 2\tabularnewline
+2 & 2 & 2 & 2 & 2\tabularnewline
+2 & 2 & 2 & 2 & 2\tabularnewline
+2 & 2 & 2 & 2 & 2\tabularnewline
+\hlinewd{2pt}
+\end{tabular}
+\par
+\end{centering}
+\end{table}
+
 
 \newpage{}
 \bibliographystyle{XMU}
