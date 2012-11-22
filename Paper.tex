@@ -66,12 +66,11 @@
 \setlength{\parindent}{2em}
 %% 定义正文字体
 \usepackage{fontspec}
-%\usepackage[slantfont,boldfont]{xeCJK}
 \usepackage[BoldFont,CJKnumber]{xeCJK}
 \setmainfont{Times New Roman} % 英文字体 
 \setmonofont{Consolas}
 %\setmonofont{Courier New}
-\setCJKmainfont{Adobe 宋体 Std} %正文字体
+\setCJKmainfont{Adobe 宋体 Std} %正文字体  适用于OS X，其他OS可换为SimSun等
 \setCJKfamilyfont{song}{Adobe 宋体 Std}
 \setCJKfamilyfont{hei}{Adobe 黑体 Std}
 \setCJKfamilyfont{kai}{Adobe 楷体 Std}
@@ -126,94 +125,15 @@
     \if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
 
-%%目录设置
-\renewcommand\contentsname{\hei \xiaosan 目~~~~~录}
-
-%\renewcommand\chaptername{第~\xCJKnumber{\thechapter}~章}
-
-\setcounter{secnumdepth}{4} \setcounter{tocdepth}{2}
-
-
-
-
-\titlecontents{chapter}[3.8em]{\hspace{-3.8em}\hei \sihao \bfseries}{第~\xCJKnumber{\thecontentslabel}~章~~}{}{\titlerule*[4pt]{.}\contentspage}
-
-
-\dottedcontents{section}[40pt]{}{22pt}{0.3pc}
-\dottedcontents{subsection}[62pt]{}{32pt}{0.3pc}
-
-
-
-%重新定义BiChapter命令，可实现标题手动换行，但不影响目录
-\def\BiChapter{\relax\@ifnextchar [{\@BiChapter}{\@@BiChapter}}
-\def\@BiChapter[#1]#2#3{\chapter[#1]{#2}
-    \addcontentsline{toe}{chapter}{\hei \bfseries \sihao Chapter \thechapter\hspace{0.5em} #3}}
-\def\@@BiChapter#1#2{\chapter{#1}
-    \addcontentsline{toe}{chapter}{\hei \bfseries \sihao Chapter \thechapter\hspace{0.5em}{\boldmath #2}}}
-
-
-
-\newcommand{\BiSection}[2]
-{   \section{\hei \xiaosi \bfseries #1}
-    \addcontentsline{toe}{section}{\hei \xiaosi \bfseries \protect\numberline{\csname thesection\endcsname}#2}
-    
-}
-
-\newcommand{\BiSubsection}[2]
-{    \subsection{\song \xiaosi #1}
-    \addcontentsline{toe}{subsection}{\song \xiaosi \protect\numberline{\csname thesubsection\endcsname}#2}
-}
-
-\newcommand{\BiSubsubsection}[2]
-{    \subsubsection{#1}
-    \addcontentsline{toe}{subsubsection}{\protect\numberline{\csname thesubsubsection\endcsname}#2}
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 英文目录格式
-\def\@dotsep{0.75}           % 定义英文目录的点间距
-\setlength\leftmargini {0pt}
-\setlength\leftmarginii {0pt}
-\setlength\leftmarginiii {0pt}
-\setlength\leftmarginiv {0pt}
-\setlength\leftmarginv {0pt}
-\setlength\leftmarginvi {0pt}
-
-\def\engcontentsname{\bfseries \xiaosan Contents}
-\newcommand\tableofengcontents{
-   \pdfbookmark[0]{Contents}{econtent}
-     \@restonecolfalse
-   \chapter*{\engcontentsname  %chapter*上移一行，避免在toc中出现。
-       \@mkboth{%
-          \engcontentsname}{\engcontentsname}}
-   \@starttoc{toe}%
-   \if@restonecol\twocolumn\fi
-   }
-
-
-\newcommand{\BiAppendixChapter}[2] % 该附录命令适用于发表文章，简历等
-{\phantomsection
-\markboth{#1}{#1}
-\addcontentsline{toc}{chapter}{\xiaosi #1}
-\addcontentsline{toe}{chapter}{\bfseries \xiaosi #2}  \chapter*{#1}
-}
-
-\newcommand{\BiAppChapter}[2]    % 该附录命令适用于有章节的完整附录
-{\phantomsection 
- \chapter{#1}
- \addcontentsline{toe}{chapter}{\bfseries \xiaosi Appendix \thechapter~~#2}
-}
-
-
 
 
 %% 正文标题格式
-\titleformat{\chapter}[hang]{ \centering\xiaosan\hei\bfseries}{第\,\xCJKnumber{\thechapter}\,章}{1em}{}
-\titleformat{\section}[hang]{\hei\sihao\bfseries}{\thesection{}}{1em}{}
-\titleformat{\subsection}[hang]{\bfseries\hei\xiaosi}{\thesubsection}{0.5em}{}
-\titleformat{\subsubsection}[hang]{\bfseries\hei\xiaosi}{\thesubsubsection}{0.5em}{}
-\titlespacing{\chapter}{0bp}{-5.5mm}{12bp}
+\titleformat{\chapter}[hang]{ \centering\xiaosan\hei\bfseries}{第\,\xCJKnumber{\thechapter}\,章}{1em}{} %章：小三黑体加粗并居中
+\titleformat{\section}[hang]{\hei\sihao\bfseries}{\thesection{}}{1em}{} %节：四号黑体加粗
+\titleformat{\subsection}[hang]{\bfseries\hei\xiaosi}{\thesubsection}{0.5em}{} %目：小四黑体加粗
+\titleformat{\subsubsection}[hang]{\bfseries\hei\xiaosi}{\thesubsubsection}{0.5em}{} %子目：小四黑体加粗
+%标题间距
+\titlespacing{\chapter}{0bp}{-30bp}{12bp}
 \titlespacing{\section}{0bp}{0bp}{12bp}
 \titlespacing{\subsection}{0bp}{12bp}{0bp}
 \titlespacing{\subsubsection}{0bp}{12bp}{0bp}
@@ -224,13 +144,11 @@
 \renewcommand{\tablename}{\bfseries \song \xiaoso  表}
 \numberwithin{table}{chapter}
 \renewcommand{\thefigure}{\thechapter.\arabic{figure}}
-\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\thetable}{\thechapter.\arabic{table}}
 %\renewcommand{\lstlistingname}{\bfseries \song \xiaowu 算法}
 %\def\thelstlisting{\thesection.\arabic{lstlisting}}
 
-%\makeatletter
-%\@addtoreset{figure}{section}
-%\makeatother
+
 
 %公式按章编号
 \numberwithin{equation}{chapter}
@@ -393,9 +311,9 @@
         \thispagestyle{plain}%
     \fancyfoot{}%
     \def\XMU@keywords{#1}%
-        \vspace*{50bp}%
+        \vspace*{10bp}%
         \begin{center}%
-        {\hei\xiaoer 摘~~~要}%
+        {\hei\xiaoer 摘~~~~~要}%
         \end{center}
         \vspace{12bp}%
     \par%
@@ -416,7 +334,7 @@
         \thispagestyle{plain}%
     \fancyfoot{}%
     \def\XMU@keywords{#1}%
-        \vspace*{50bp}%
+        \vspace*{10bp}%
         \begin{center}%
         {\bfseries\xiaoer Abstract}%
         \end{center}
@@ -433,6 +351,76 @@
     \cleardoublepage
 }
 
+
+
+%%目录设置
+\renewcommand\contentsname{\hei \xiaosan 目~~~~~录}
+\setcounter{secnumdepth}{4} \setcounter{tocdepth}{2}
+
+\titlecontents{chapter}[3.8em]{\hspace{-3.8em}\hei \sihao \bfseries}{第~\xCJKnumber{\thecontentslabel}~章~~}{}{\titlerule*[4pt]{.}\contentspage}
+
+%修正章节数字在目录的距离
+\dottedcontents{section}[40pt]{}{22pt}{0.3pc}
+\dottedcontents{subsection}[62pt]{}{32pt}{0.3pc}
+
+%重新定义BiChapter命令，可实现标题手动换行，但不影响目录
+\def\BiChapter{\relax\@ifnextchar [{\@BiChapter}{\@@BiChapter}}
+\def\@BiChapter[#1]#2#3{\chapter[#1]{#2}
+    \addcontentsline{toe}{chapter}{\hei \bfseries \sihao Chapter \thechapter\hspace{0.5em} #3}}
+\def\@@BiChapter#1#2{\chapter{#1}
+    \addcontentsline{toe}{chapter}{\hei \bfseries \sihao Chapter \thechapter\hspace{0.5em}{\boldmath #2}}}
+%目录格式
+\newcommand{\BiSection}[2]
+{   \section{\hei \xiaosi \bfseries #1}%中文
+    \addcontentsline{toe}{section}{\hei \xiaosi \bfseries \protect\numberline{\csname thesection\endcsname}#2}%英文
+    
+}
+
+\newcommand{\BiSubsection}[2]
+{    \subsection{\song \xiaosi #1}
+    \addcontentsline{toe}{subsection}{\song \xiaosi \protect\numberline{\csname thesubsection\endcsname}#2}
+}
+
+\newcommand{\BiSubsubsection}[2]
+{    \subsubsection{#1}
+    \addcontentsline{toe}{subsubsection}{\protect\numberline{\csname thesubsubsection\endcsname}#2}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 英文目录格式
+\def\@dotsep{0.75}           % 定义英文目录的点间距
+\setlength\leftmargini {0pt}
+\setlength\leftmarginii {0pt}
+\setlength\leftmarginiii {0pt}
+\setlength\leftmarginiv {0pt}
+\setlength\leftmarginv {0pt}
+\setlength\leftmarginvi {0pt}
+
+\def\engcontentsname{\bfseries \xiaosan Contents}
+\newcommand\tableofengcontents{
+   \pdfbookmark[0]{Contents}{econtent}
+     \@restonecolfalse
+   \chapter*{\engcontentsname  %chapter*上移一行，避免在toc中出现。
+       \@mkboth{%
+          \engcontentsname}{\engcontentsname}}
+   \@starttoc{toe}%
+   \if@restonecol\twocolumn\fi
+   }
+
+%%暂时没有使用
+\newcommand{\BiAppendixChapter}[2] % 该附录命令适用于发表文章，简历等
+{\phantomsection
+\markboth{#1}{#1}
+\addcontentsline{toc}{chapter}{\xiaosi #1}
+\addcontentsline{toe}{chapter}{\bfseries \xiaosi #2}  \chapter*{#1}
+}
+
+\newcommand{\BiAppChapter}[2]    % 该附录命令适用于有章节的完整附录
+{\phantomsection 
+ \chapter{#1}
+ \addcontentsline{toe}{chapter}{\bfseries \xiaosi Appendix \thechapter~~#2}
+}
 
 
 
@@ -488,6 +476,8 @@
          } %%%%
  \fi}
 \makeatother
+
+
 
 \predisplaypenalty=0  %公式之前可以换页，公式出现在页面顶部
 
